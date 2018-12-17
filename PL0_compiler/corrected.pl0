@@ -1,0 +1,22 @@
+const two=2,three=3;
+var x;
+procedure a;
+begin
+	read(x);
+	write(x*two);
+	write(x+three);
+end;
+procedure p;
+begin
+	while x<>0 do
+	begin
+		call a;
+	end;
+end;
+begin
+	read(x);
+	if x=1 then
+	begin
+		call p;
+	end;
+end.
