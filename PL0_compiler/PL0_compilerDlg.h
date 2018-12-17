@@ -24,7 +24,7 @@ public:
 // 实现
 protected:
 	HICON m_hIcon;
-
+	int canInterpret;
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
@@ -35,6 +35,8 @@ public:
 	CString m_fileName;
 	CString m_inputCode;
 	CString m_input;
-	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedButton2();
+	CListCtrl m_listCtrl;
+	CString m_output;
 };

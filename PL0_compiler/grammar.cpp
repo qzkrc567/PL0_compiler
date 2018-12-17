@@ -9,6 +9,8 @@ using namespace std;
 
 void test(node* set1, node* set2, int n)	//测试当前符号是否合法，若不合法，打印出错标志并继续跳读
 {
+	if (sym == "non")
+		return;
 	if (!in(sym, set1))
 	{
 		error(n);

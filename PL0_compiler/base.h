@@ -7,20 +7,19 @@ using namespace std;
 #define MAXLEV 3		//最大层数
 #define STACKSIZE 500	//运行栈大小
 #define ERRMAX 50		//最大错误数量
-extern ifstream fin;
-extern ifstream input;
-extern ofstream fa;
-extern ofstream fa1;
-extern ofstream fa2;
+//extern CFile fin;
+//extern ifstream input;
+//extern ofstream fa;
+//extern ofstream fa1;
 
 extern char ch;					//当前读取的字符
 extern string id;				//当前标识符（或者保留字）
 extern string sym;				//当前的单词的类型
 extern string line;				//当前行
 extern string fname;			//文件名
-extern string inputValue[50];	//PL0程序需要的输入
-extern int inputCnt;			//输入的数量
+extern char inputcode[10001];
 extern double num;				//当前读取的num，int类型
+extern int cur;
 extern int cc;					//当前字符在这一行的位置
 extern int cx;					//Pcode的数量
 extern int err;					//错误数量
@@ -28,6 +27,7 @@ extern int lev;					//函数或者变量所在的层数
 extern int dx;					//变量所在的地址
 extern int tx;					//表索引
 extern int linecnt;				//行数
+extern DWORD codeLength;
 extern string pCode[8];
 
 enum fuc { lit, opr, lod, sto, cal, ini, jmp, jpc };

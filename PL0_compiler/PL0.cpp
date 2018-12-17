@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "PL0.h"
 #include "lex.h"
 #include "error.h"
 #include "base.h"
@@ -11,17 +12,7 @@ using namespace std;
 
 void init()
 {
-	cout << "请输入文件名：";
-	cin >> fname;
-	fin.open(fname);
-	while (getline(input, inputValue[inputCnt]))
-	{
-		inputCnt++;
-		if (inputCnt >= 50)
-			break;
-	}
-	for (int i = 0; i < inputCnt; i++)
-		cout << inputValue[i] << endl;
+	
 	declbegsys = new node;
 	declbegsys->pa[0] = "constsym";
 	declbegsys->pa[1] = "varsym";
@@ -41,37 +32,64 @@ void init()
 	tempsetsys->pa[2] = "varsym";
 	tempsetsys->pa[3] = "proceduresym";
 
-
-
+	cur = 0;
 	err = 0;
 	cc = 0;
+	cx = 0;
+	line = "";
 	ch = ' ';
+	lev = 0;
+	dx = 3;
+	tx = -1;
+	linecnt = 0;
 	getsym();
 }
 
-void start()
+vector<vector<string>> compiler(char* Buf, DWORD len)
 {
+	for (int i = 0; i < len; i++)
+	{
+		inputcode[i] = Buf[i];
+		if (i == 225)
+		{
+			cout << "" << endl;
+		}
+	}
+	cout << inputcode << endl;
+	codeLength = len;
+	init();
+	vector<vector<string>> res;
+	vector<string> type;
 	block(0, add(statbegsys, tempsetsys));
-	fa.close();
-	fa1.close();
+	//fa.close();
+	//fa1.close();
 	if (sym != "dot") error(9);
 	if (err == 0)
 	{
-		for(int i = 0; i < cx; i++)
-			cout << setw(3) << i + 1 << setw(5) <<pCode[code[i].f] << setw(5) << code[i].l << setw(5) << code[i].a << endl;
+		type.push_back("ok");
+		res.push_back(type);
+		for (int i = 0; i < cx; i++)
+		{
+			vector<string> temp;
+			temp.push_back(pCode[code[i].f]);
+			temp.push_back(to_string(code[i].l));
+			temp.push_back(to_string(code[i].a));
+			res.push_back(temp);
+		}
 	}
 	else
 	{
-		printf("一共有%d个错误\n", err);
-		for(int i = 0; i < err; i++)
-			cout << setw(3) << i+1 << setw(35) << err_msg[i].info << setw(3) << err_msg[i].lineNum << setw(5) << err_msg[i].charNum << endl;
+		//printf("一共有%d个错误\n", err);
+		type.push_back("error");
+		res.push_back(type);
+		for (int i = 0; i < err; i++)
+		{
+			vector<string> temp;
+			temp.push_back(to_string(err_msg[i].lineNum));
+			temp.push_back(to_string(err_msg[i].charNum));
+			temp.push_back(err_msg[i].info);
+			res.push_back(temp);
+		}
 	}
-	fin.close();
-}
-
-int compiler()
-{
-	init();
-	start();
-	return 0;
+	return res;
 }

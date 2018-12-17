@@ -15,44 +15,47 @@ void getChar() //把一行的代码存入line
 	{
 		linecnt++;
 		line = "";
-		if (fin.peek() == EOF)
+		if (cur >= codeLength)
 		{
+			err_msg[err].info = "lexical program incomplete";
+			err_msg[err].lineNum = linecnt;
+			err_msg[err++].charNum = cc;
 			printf("一共有%d个错误\n", err);
 			for (int i = 0; i < err; i++)
 				cout << setw(3) << i << setw(30) << err_msg[i].info << setw(3) << err_msg[i].lineNum << setw(5) << err_msg[i].charNum << endl;
 
 			cout << "lexical program incomplete!" << endl;
-			exit(0);
+			ch = '\a';
+			return;
 		}
 		cc = 0;
-		if (fa1.is_open())
+		while (cur < codeLength)
 		{
-			while (!(fin.peek() == EOF))
-			{
-				fin.get(ch);
-				if (ch != '\n')
-				{
-					cout << ch;
-					fa1 << ch;
-					line += ch;
-				}
-				else break;
-			}
-			if (!(fin.peek() == EOF))
+			ch = inputcode[cur++];
+			if (ch != '\n')
 			{
 				cout << ch;
-				fa1 << ch;
+				//fa1 << ch;
 				line += ch;
 			}
-			else
-			{
-				cout << endl;
-				fa1 << endl;
-				line += '\n';
-			}
+			else break;
+		}
+		if (cur < codeLength)
+		{
+			cout << ch;
+			//fa1 << ch;
+			line += ch;
+		}
+		else
+		{
+			cout << endl;
+			//fa1 << endl;
+			line += '\n';
 		}
 	}
 	ch = line[cc++];
+	if (ch == '\r')
+		ch = line[cc++];
 }
 
 void getsym()
@@ -164,6 +167,11 @@ void getsym()
 			sym = "neq";
 		else if (ch == ';')
 			sym = "semi";
+		else if (ch == '\a')
+		{
+			sym = "non";
+			return;
+		}
 		getChar();
 	}
 }

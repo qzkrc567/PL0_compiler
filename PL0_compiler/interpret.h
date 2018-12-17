@@ -1,4 +1,4 @@
 #pragma once
-
-int base(int l, int *b, int s[STACKSIZE]);
-void interpret();
+#include <vector>
+int base(int l, int *b, int s[500]);
+string interpret(int[]);

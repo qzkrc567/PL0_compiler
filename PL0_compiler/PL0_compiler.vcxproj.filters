@@ -45,6 +45,9 @@
     <ClInclude Include="lex.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PL0.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PL0_compiler.cpp">

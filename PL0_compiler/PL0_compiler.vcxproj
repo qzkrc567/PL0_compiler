@@ -188,6 +188,7 @@
     <ClInclude Include="grammar.h" />
     <ClInclude Include="interpret.h" />
     <ClInclude Include="lex.h" />
+    <ClInclude Include="PL0.h" />
     <ClInclude Include="PL0_compiler.h" />
     <ClInclude Include="PL0_compilerDlg.h" />
     <ClInclude Include="Resource.h" />

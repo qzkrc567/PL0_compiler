@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "afxdialogex.h"
 #include "base.h"
 #include "interpret.h"
 #include <iostream>
@@ -7,7 +8,7 @@
 #include <stdlib.h>
 using namespace std;
 
-int base(int l, int *b, int s[STACKSIZE])
+int base(int l, int *b, int s[500])
 {
 	int b1;
 	b1 = *b;
@@ -20,10 +21,9 @@ int base(int l, int *b, int s[STACKSIZE])
 }
 
 
-void interpret()
+string interpret(int inputValue[])
 {
-	for (int i = 0; i < cx; i++)
-		cout << setw(3) << i << setw(5) << pCode[code[i].f] << setw(3) << code[i].l << setw(5) << code[i].a << endl;
+	string res = "";
 	int p = 0;						//ÔËÐÐ¼Ä´æÆ÷
 	int b = 1;						//»ùÖ·¼Ä´æÆ÷
 	int t = 0;						//Õ»¶¥¼Ä´æÆ÷
@@ -98,21 +98,16 @@ void interpret()
 				break;
 			case 14:
 				cout << s[t];
-				fa2 << s[t];
+				res += to_string(s[t]);
 				t--;
 				break;
 			case 15:
 				cout << endl;
-				fa2 << endl;
+				res += "\r\n";
 				break;
 			case 16:
 				t++;
-				cout << "? ";
-				fa2 << "? ";
-				string::size_type sz;
-				s[t] = stoi(inputValue[curInput++], &sz);
-				cout << s[t] << endl;
-				fa2 << s[t] << endl;
+				s[t] = inputValue[curInput++];
 				break;
 			default:
 				break;
@@ -146,6 +141,6 @@ void interpret()
 			break;
 		}
 	} while (p);
-	fa2.close();
 	cout << "finish!\n";
+	return res;
 }
