@@ -70,6 +70,8 @@ BEGIN_MESSAGE_MAP(CPL0compilerDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CPL0compilerDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDOK, &CPL0compilerDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -158,3 +160,25 @@ HCURSOR CPL0compilerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CPL0compilerDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	CFile inputCodeFile;
+	inputCodeFile.Open(m_fileName, CFile::modeRead, NULL);
+	DWORD len = inputCodeFile.GetLength();
+	char Buf[1000];
+	Buf[len] = 0;  //0终止字符串，用于输出。
+	inputCodeFile.Read(Buf, len);   //Read( void* lpBuf, UINT nCount ) lpBuf是用于接收读取到的数据的Buf指针nCount是从文件读取的字节数
+	m_inputCode = Buf;
+	UpdateData(FALSE);
+}
+
+
+void CPL0compilerDlg::OnBnClickedOk()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	
+}

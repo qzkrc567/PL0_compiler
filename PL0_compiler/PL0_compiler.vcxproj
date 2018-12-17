@@ -183,6 +183,11 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="base.h" />
+    <ClInclude Include="error.h" />
+    <ClInclude Include="grammar.h" />
+    <ClInclude Include="interpret.h" />
+    <ClInclude Include="lex.h" />
     <ClInclude Include="PL0_compiler.h" />
     <ClInclude Include="PL0_compilerDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -190,6 +195,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="base.cpp" />
+    <ClCompile Include="error.cpp" />
+    <ClCompile Include="grammar.cpp" />
+    <ClCompile Include="interpret.cpp" />
+    <ClCompile Include="lex.cpp" />
+    <ClCompile Include="PL0.cpp" />
     <ClCompile Include="PL0_compiler.cpp" />
     <ClCompile Include="PL0_compilerDlg.cpp" />
     <ClCompile Include="stdafx.cpp">

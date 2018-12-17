@@ -30,6 +30,21 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="grammar.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="interpret.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PL0_compiler.cpp">
@@ -39,6 +54,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="base.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="error.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="grammar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="interpret.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PL0.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

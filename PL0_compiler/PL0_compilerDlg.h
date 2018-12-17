@@ -35,4 +35,6 @@ public:
 	CString m_fileName;
 	CString m_inputCode;
 	CString m_input;
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedOk();
 };
