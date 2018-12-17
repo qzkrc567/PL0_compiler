@@ -52,6 +52,8 @@ END_MESSAGE_MAP()
 CPL0compilerDlg::CPL0compilerDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_PL0_COMPILER_DIALOG, pParent)
 	, m_fileName(_T(""))
+	, m_inputCode(_T(""))
+	, m_input(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -60,6 +62,8 @@ void CPL0compilerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_MFCEDITBROWSE1, m_fileName);
+	DDX_Text(pDX, IDC_EDIT1, m_inputCode);
+	DDX_Text(pDX, IDC_EDIT2, m_input);
 }
 
 BEGIN_MESSAGE_MAP(CPL0compilerDlg, CDialogEx)

@@ -33,4 +33,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CString m_fileName;
+	CString m_inputCode;
+	CString m_input;
 };
