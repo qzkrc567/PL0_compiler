@@ -1,18 +1,14 @@
-const a=21;
-var b;
-procedure p;
-var c;
-procedure ds;
-var d;
+var x,y;
+procedure multiply;
+	var b,c;
+	begin
+	b:=x
+	end;
+procedure mu;
+	var d,f;
+	begin
+	d:=x
+	end;
 begin
-end;
-begin
-	b := a;
-end;
-procedure f;
-begin
-	d:= 1;
-end;
-begin
-	c := 1;
-end.
+end
+.

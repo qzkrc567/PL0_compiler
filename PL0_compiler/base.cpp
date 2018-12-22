@@ -52,7 +52,7 @@ node* add(node *set1, node *set2)
 	return res;
 }
 
-void gen(fuc x, int y, double z)				//新增一行PCode
+void newPCode(fuc x, int y, double z)				//新增一行PCode
 {
 	code[cx].f = x;
 	code[cx].l = y;

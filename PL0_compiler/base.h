@@ -79,7 +79,7 @@ jpc 0, a:在栈顶的布尔值为假时，跳到a域的地址
 bool in(string str, struct node* set);
 node* add(node *set1, node *set2);
 
-void gen(fuc x, int y, double z);				//新增一行PCode
+void newPCode(fuc x, int y, double z);				//新增一行PCode
 void enter(object k);			//向符号表中添加项
 
 int position(string id);				//在符号表中查找,-1表示没找到
