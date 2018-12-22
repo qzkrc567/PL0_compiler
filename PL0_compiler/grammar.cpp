@@ -317,6 +317,7 @@ void block(int plevel, node* fsys)
 	temp3->pa[0] = "semi";
 	node* temp4 = new node;
 	temp4->pa[0] = "ident";
+	temp4->pa[0] = "non";
 	node* temp5 = new node;
 
 	lev = plevel;
@@ -369,7 +370,9 @@ void block(int plevel, node* fsys)
 			else error(4);
 			if (sym == "semi") getsym();
 			else error(4);
+			int temp_tx = tx;
 			block(plevel + 1, add(temp3, fsys));
+			tx = temp_tx;
 			lev--;
 			if (sym == "semi")
 			{

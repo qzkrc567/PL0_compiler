@@ -1,4 +1,18 @@
 const a=21;
+var b;
+procedure p;
+var c;
+procedure ds;
+var d;
 begin
-	write(a);
+end;
+begin
+	b := a;
+end;
+procedure f;
+begin
+	d:= 1;
+end;
+begin
+	c := 1;
 end.

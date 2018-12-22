@@ -250,6 +250,7 @@ void CPL0compilerDlg::OnBnClickedButton2()
 		CString strEditStr;//编辑框的内容
 		CString strTemp;//用于分割的临时字符串
 		int inputValue[100];
+		memset(inputValue, -573249, sizeof(inputValue));
 		strEditStr = m_input;//strEditStr为编辑框内的多行内容
 		//将编辑框的内容根据换行符分割开
 		CStringArray editArr;
@@ -268,9 +269,10 @@ void CPL0compilerDlg::OnBnClickedButton2()
 			editArr.Add(strEditStr);
 		}//多行字符串分割完毕
 		//此时editArr里面保存的就是每一行的内容，可以用editArr.GetAt(i)进行访问
-		for (int i = 0; i < editArr.GetCount(); i++)
+		int i;
+		for (i = 0; i < editArr.GetCount(); i++)
 			inputValue[i] = _ttoi(editArr.GetAt(i));
-		string res = interpret(inputValue);
+		string res = interpret(inputValue, i);
 		m_output = res.c_str();
 
 		UpdateData(FALSE);

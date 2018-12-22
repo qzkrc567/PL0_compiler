@@ -8,10 +8,10 @@
 #include <stdlib.h>
 using namespace std;
 
-int base(int l, int *b, int s[500])
+int find(int l, int b, int s[500])
 {
 	int b1;
-	b1 = *b;
+	b1 = b;
 	while (l)
 	{
 		b1 = s[b1];
@@ -21,7 +21,7 @@ int base(int l, int *b, int s[500])
 }
 
 
-string interpret(int inputValue[])
+string interpret(int inputValue[], int len)
 {
 	string res = "";
 	int p = 0;						//ÔËĞĞ¼Ä´æÆ÷
@@ -35,7 +35,6 @@ string interpret(int inputValue[])
 	do
 	{
 		i = code[p++];
-		//cout << setw(5) << pCode[i.f] << setw(3) << i.l << setw(5) << i.a << endl;
 		switch (i.f)
 		{
 		case lit:
@@ -98,7 +97,7 @@ string interpret(int inputValue[])
 				break;
 			case 14:
 				cout << s[t];
-				res += to_string(s[t]);
+				res += to_string(s[t]) + " ";
 				t--;
 				break;
 			case 15:
@@ -106,8 +105,10 @@ string interpret(int inputValue[])
 				res += "\r\n";
 				break;
 			case 16:
+				if (curInput >= len)
+					return "too little input";
 				t++;
-				s[t] = inputValue[curInput++];
+				s[t] = inputValue[curInput++];	
 				break;
 			default:
 				break;
@@ -115,14 +116,14 @@ string interpret(int inputValue[])
 			break;
 		case lod:
 			t++;
-			s[t] = s[base(i.l, &b, s) + i.a];
+			s[t] = s[find(i.l, b, s) + i.a];
 			break;
 		case sto:
-			s[base(i.l, &b, s) + i.a] = s[t];
+			s[find(i.l, b, s) + i.a] = s[t];
 			t--;
 			break;
 		case cal:
-			s[t + 1] = base(i.l, &b, s);
+			s[t + 1] = find(i.l, b, s);
 			s[t + 2] = b;
 			s[t + 3] = p;
 			b = t + 1;

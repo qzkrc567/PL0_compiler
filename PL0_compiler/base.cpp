@@ -81,7 +81,7 @@ void enter(object k)			//向符号表中添加项
 
 int position(string id)				//在符号表中查找,-1表示没找到
 {
-	for (int i = 0; i <= tx; i++)
+	for (int i = tx; i >= 0; i--)
 		if (table[i].name == id)
 			return i;
 	return -1;

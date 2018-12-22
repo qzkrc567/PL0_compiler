@@ -31,6 +31,7 @@ void init()
 	tempsetsys->pa[1] = "constsym";
 	tempsetsys->pa[2] = "varsym";
 	tempsetsys->pa[3] = "proceduresym";
+	tempsetsys->pa[3] = "non";
 
 	cur = 0;
 	err = 0;
