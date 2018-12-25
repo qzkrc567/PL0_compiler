@@ -13,25 +13,25 @@ using namespace std;
 void init()
 {
 	
-	declbegsys = new node;
-	declbegsys->pa[0] = "constsym";
-	declbegsys->pa[1] = "varsym";
-	declbegsys->pa[2] = "proceduresym";
-	statbegsys = new node;
-	statbegsys->pa[0] = "beginsym";
-	statbegsys->pa[1] = "callsym";
-	statbegsys->pa[2] = "ifsym";
-	statbegsys->pa[3] = "whilesym";
-	facbegsys = new node;
-	facbegsys->pa[0] = "ident";
-	facbegsys->pa[1] = "number";
-	facbegsys->pa[2] = "lpar";
-	tempsetsys = new node;
-	tempsetsys->pa[0] = "dot";
-	tempsetsys->pa[1] = "constsym";
-	tempsetsys->pa[2] = "varsym";
-	tempsetsys->pa[3] = "proceduresym";
-	tempsetsys->pa[3] = "non";
+	declarationbeginsys = new stringSet;
+	declarationbeginsys->pa[0] = "constsym";
+	declarationbeginsys->pa[1] = "varsym";
+	declarationbeginsys->pa[2] = "proceduresym";
+	statementbeginsys = new stringSet;
+	statementbeginsys->pa[0] = "beginsym";
+	statementbeginsys->pa[1] = "callsym";
+	statementbeginsys->pa[2] = "ifsym";
+	statementbeginsys->pa[3] = "whilesym";
+	factorbeginsys = new stringSet;
+	factorbeginsys->pa[0] = "ident";
+	factorbeginsys->pa[1] = "number";
+	factorbeginsys->pa[2] = "lpar";
+	blocksetsys = new stringSet;
+	blocksetsys->pa[0] = "dot";
+	blocksetsys->pa[1] = "constsym";
+	blocksetsys->pa[2] = "varsym";
+	blocksetsys->pa[3] = "proceduresym";
+	blocksetsys->pa[4] = "non";
 
 	cur = 0;
 	err = 0;
@@ -61,7 +61,7 @@ vector<vector<string>> compiler(char* Buf, DWORD len)
 	init();
 	vector<vector<string>> res;
 	vector<string> type;
-	block(0, add(statbegsys, tempsetsys));
+	block(0, add(statementbeginsys, blocksetsys));
 	//fa.close();
 	//fa1.close();
 	if (sym != "dot") error(9);

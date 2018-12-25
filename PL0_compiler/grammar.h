@@ -1,11 +1,11 @@
 #pragma once
 #include "base.h"
-void testFollow(node* set1, node* set2, int n);
-void constdeclaration();
-void vardeclaration();
-void factor(node*);					//因子
-void term(node*);					//项
-void expression(node*);					//表达式
-void condition(node*);
-void statement(node*, int);
-void block(int, node*);
+void testFollow(stringSet* set1, stringSet* set2, int n);//判断下一个符号是否合法
+void constdeclaration();						//常量声明
+void vardeclaration();							//变量声明
+void block(int, stringSet*);					//块
+void statement(stringSet*, int);				//语句
+void expression(stringSet*);					//表达式
+void term(stringSet*);							//项
+void factor(stringSet*);						//因子
+void condition(stringSet*);						//判断语句

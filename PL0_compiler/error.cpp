@@ -30,14 +30,14 @@ string err_str[35] = {
 	"\')\' is missing",
 	"wrong symbol after factors",
 	"it cannot be an expression starter",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
 	"the number is too big",
-	"it's not a variable in the read statement",
+	"too many levels",
+	"should be \')\'",
+	"",
+	"",
+	"",
+	"",
+	"",
 	"",
 	""
 };
@@ -50,23 +50,4 @@ void error(int n)
 		err_msg[err].lineNum = linecnt;
 		err_msg[err++].charNum = cc - 1;
 	}
-	/*if (fa1.is_open())
-	{
-		int i;
-		cout << "***";
-		fa1 << "***";
-		for (i = 0; i < cc - 3; i++)
-		{
-			cout << " ";
-			fa1 << " ";
-		}
-		cout << "error" << n << endl;
-		fa1 << "error" << n << endl;
-	}*/
-}
-
-void display()
-{
-	for (int i = 0; i < err; i++)
-		printf("%3d\n%30s\n%5d\n%5d\n", i, err_msg[i].info, err_msg[i].lineNum, err_msg[i].charNum);
 }

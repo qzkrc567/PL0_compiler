@@ -23,14 +23,15 @@ int lev = 0;			//函数或者变量所在的层数
 int dx = 3;				//变量所在的地址
 int tx = -1;			//表索引
 int linecnt = 0;		//行数
+int runtime = 0;		
 DWORD codeLength;
 string pCode[8] = { "lit", "opr", "lod", "sto", "cal", "ini", "jmp", "jpc" };
 struct errors err_msg[ERRMAX];	//错误信息
-struct instruction code[1001];
+struct onePCode code[1001];
 struct tableitem table[101];
-struct node *declbegsys, *statbegsys, *facbegsys, *tempsetsys;
+struct stringSet *declarationbeginsys, *statementbeginsys, *factorbeginsys, *blocksetsys;
 
-bool in(string str, struct node* set)
+bool in(string str, struct stringSet* set)
 {
 	for (int i = 0; i < 32 && !set->pa[i].empty(); i++)
 	{
@@ -40,10 +41,10 @@ bool in(string str, struct node* set)
 	return false;
 }
 
-node* add(node *set1, node *set2)
+stringSet* add(stringSet *set1, stringSet *set2)
 {
 	int cnt = 0;
-	node *res = new node();
+	stringSet *res = new stringSet();
 	for (int i = 0; i < 32 && !set1->pa[i].empty(); i++)
 		res->pa[cnt++] = set1->pa[i];
 	for (int i = 0; i < 32 && !set2->pa[i].empty(); i++)

@@ -7,7 +7,7 @@
 #include <iomanip>
 using namespace std;
 
-void testFollow(node* set1, node* set2, int n)	//测试当前符号是否合法，若不合法，打印出错标志并继续跳读
+void testFollow(stringSet* set1, stringSet* set2, int n)	//测试当前符号是否合法，若不合法，打印出错标志并继续跳读
 {
 	if (sym == "non")
 		return;
@@ -52,13 +52,13 @@ void vardeclaration()				//声明变量
 	else error(4);					//const,var,procedure后面应该是标识符
 }
 
-void factor(node* follow_sys)				//因子
+void factor(stringSet* follow_sys)				//因子
 {
-	node* temp = new node;
+	stringSet* temp = new stringSet;
 	int i;
 	temp->pa[0] = "rpar";
-	testFollow(facbegsys, follow_sys, 24);
-	while (in(sym, facbegsys))
+	testFollow(factorbeginsys, follow_sys, 24);
+	while (in(sym, factorbeginsys))
 	{
 		if (sym == "ident")
 		{
@@ -76,7 +76,7 @@ void factor(node* follow_sys)				//因子
 		{
 			if (num > INT_MAX)
 			{
-				error(31);
+				error(25);
 				num = 0;
 			}
 			newPCode(lit, 0, num);
@@ -89,14 +89,14 @@ void factor(node* follow_sys)				//因子
 			if (sym == "rpar") getsym();
 			else error(22);			//无右括号
 		}
-		testFollow(add(temp, follow_sys), facbegsys, 23);	//查看因子后有无非法符号
+		testFollow(add(temp, follow_sys), factorbeginsys, 23);	//查看因子后有无非法符号
 	}
 }
 
-void term(node *follow_sys)				//项
+void term(stringSet *follow_sys)				//项
 {
 	string mulop;
-	node *temp = new node;
+	stringSet *temp = new stringSet;
 	temp->pa[0] = "mul";
 	temp->pa[1] = "div";
 	factor(add(temp, follow_sys));
@@ -110,10 +110,10 @@ void term(node *follow_sys)				//项
 	}
 }
 
-void expression(node* follow_sys)					//表达式
+void expression(stringSet* follow_sys)					//表达式
 {
 	string addop;
-	node* temp = new node;
+	stringSet* temp = new stringSet;
 	temp->pa[0] = "plus";
 	temp->pa[1] = "minus";
 	if (in(sym, temp))
@@ -134,14 +134,14 @@ void expression(node* follow_sys)					//表达式
 	}
 }
 
-void condition(node* follow_sys)
+void condition(stringSet* follow_sys)					//判断语句
 {
 	string relop;
 	string tempset[6] = { "eql", "neq", "less", "gtr", "geq", "leq" };
-	node* temp1 = new node();
+	stringSet* temp1 = new stringSet();
 	for (int i = 0; i < 6; i++)
 		temp1->pa[i] = tempset[i];
-	node* temp2 = new node();
+	stringSet* temp2 = new stringSet();
 	temp2->pa[0] = "dosym";
 	if (sym == "oddsym")
 	{
@@ -165,35 +165,34 @@ void condition(node* follow_sys)
 	}
 }
 
-void statement(node* follow_sys, int plevel)
+void statement(stringSet* follow_sys, int plevel)
 {
-	node* temp1 = new node;
+	stringSet* temp1 = new stringSet;
 	temp1->pa[0] = "rpar";
 	temp1->pa[1] = "comma";
-	node* temp2 = new node;
+	stringSet* temp2 = new stringSet;
 	temp2->pa[0] = "thensym";
 	temp2->pa[1] = "dosym";
-	node* temp3 = new node;
+	temp2->pa[2] = "untilsym";
+	stringSet* temp3 = new stringSet;
 	temp3->pa[0] = "semi";
 	temp3->pa[1] = "endsym";
-	node* temp4 = new node;
+	stringSet* temp4 = new stringSet;
 	temp4->pa[0] = "semi";
-	node* temp5 = new node;
-	temp1->pa[0] = "dosym";
-	node* temp6 = new node;
+	stringSet* temp5 = new stringSet;
+	temp5->pa[0] = "dosym";
+	temp5->pa[1] = "untilsym";
+	stringSet* temp6 = new stringSet;
 
 	int i, cx1, cx2;
 	if (sym == "ident")
 	{
 		i = position(id);
 		if (i == -1) error(11);
-		else
+		else if (table[i].kind != variable)
 		{
-			if (table[i].kind != variable)
-			{
-				error(12);
-				i = 0;
-			}
+			error(12);
+			i = 0;
 		}
 		getsym();
 		if (sym == "assign") getsym();
@@ -212,7 +211,7 @@ void statement(node* follow_sys, int plevel)
 				getsym();
 				if (sym == "ident") i = position(id);
 				else i = -1;
-				if (i == -1) error(35);
+				if (i == -1) error(11);
 				else
 				{
 					newPCode(opr, 0, 16);
@@ -239,7 +238,7 @@ void statement(node* follow_sys, int plevel)
 				expression(add(temp1, follow_sys));
 				newPCode(opr, 0, 14);
 			} while (sym == "comma");
-			if (sym != "rpar") error(33);
+			if (sym != "rpar") error(26);
 			else getsym();
 		}
 		newPCode(opr, 0, 15);
@@ -276,7 +275,7 @@ void statement(node* follow_sys, int plevel)
 	{
 		getsym();
 		statement(add(temp3, follow_sys), plevel);
-		while (in(sym, add(temp4, statbegsys)))
+		while (in(sym, add(temp4, statementbeginsys)))
 		{
 			if (sym == "semi") getsym();
 			else error(10);
@@ -285,46 +284,43 @@ void statement(node* follow_sys, int plevel)
 		if (sym == "endsym")getsym();
 		else error(17);
 	}
-	else
+	else if (sym == "whilesym")
 	{
-		if (sym == "whilesym")
-		{
-			cx1 = cx;
-			getsym();
-			condition(add(temp5, follow_sys));
-			cx2 = cx;
-			newPCode(jpc, 0, 0);
-			if (sym == "dosym") getsym();
-			else error(18);
-			statement(follow_sys, plevel);
-			newPCode(jmp, 0, cx1);
-			code[cx2].a = cx;
-		}
+		cx1 = cx;
+		getsym();
+		condition(add(temp5, follow_sys));
+		cx2 = cx;
+		newPCode(jpc, 0, 0);
+		if (sym == "dosym") getsym();
+		else error(18);
+		statement(follow_sys, plevel);
+		newPCode(jmp, 0, cx1);
+		code[cx2].a = cx;
 	}
 	testFollow(follow_sys, temp6, 19);
 }
 
-void block(int plevel, node* follow_sys)
+void block(int plevel, stringSet* follow_sys)
 {
 	int dx0 = 3, cx0, tx0;
-	node* temp1 = new node;
+	stringSet* temp1 = new stringSet;
 	temp1->pa[0] = "semi";
 	temp1->pa[1] = "endsym";
-	node* temp2 = new node;
+	stringSet* temp2 = new stringSet;
 	temp2->pa[0] = "ident";
 	temp2->pa[1] = "proceduresym";
-	node* temp3 = new node;
+	stringSet* temp3 = new stringSet;
 	temp3->pa[0] = "semi";
-	node* temp4 = new node;
+	stringSet* temp4 = new stringSet;
 	temp4->pa[0] = "ident";
 	temp4->pa[0] = "non";
-	node* temp5 = new node;
+	stringSet* temp5 = new stringSet;
 
 	lev = plevel;
 	tx0 = tx;
 	table[tx].addr = cx;
 	newPCode(jmp, 0, 1);
-	if (plevel > MAXLEV) error(32);
+	if (plevel > MAXLEV) error(25);
 	do
 	{
 		if (sym == "constsym")
@@ -370,19 +366,19 @@ void block(int plevel, node* follow_sys)
 			else error(4);
 			if (sym == "semi") getsym();
 			else error(4);
-			int temp_tx = tx;
-			block(plevel + 1, add(temp3, follow_sys));
-			tx = temp_tx;
+			int temp_tx = tx;								//保存符号栈指针
+			block(plevel + 1, add(temp3, follow_sys));		//进入下一层
+			tx = temp_tx;									//复原符号栈指针
 			lev--;
 			if (sym == "semi")
 			{
 				getsym();
-				testFollow(add(statbegsys, temp2), follow_sys, 6);
+				testFollow(add(statementbeginsys, temp2), follow_sys, 6);
 			}
 			else error(5);
 		}
-		testFollow(add(statbegsys, temp4), declbegsys, 7);
-	} while (in(sym, declbegsys));
+		testFollow(add(statementbeginsys, temp4), declarationbeginsys, 7);
+	} while (in(sym, declarationbeginsys));
 	code[table[tx0].addr].a = cx;
 	table[tx0].addr = cx;
 	table[tx0].size = dx0;

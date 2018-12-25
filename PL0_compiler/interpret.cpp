@@ -23,18 +23,22 @@ int find(int l, int b, int s[500])
 
 string interpret(int inputValue[], int len)
 {
+	runtime = 0;
 	string res = "";
 	int p = 0;						//运行寄存器
 	int b = 1;						//基址寄存器
 	int t = 0;						//栈顶寄存器
 	int curInput = 0;				//当前的输入数
-	instruction i;
-	int s[STACKSIZE];
+	onePCode i;						//当前执行的PCode
+	int s[STACKSIZE];				//模拟计算机的栈式存储空间
 	cout << "start pl0" << endl;
 	s[0] = s[1] = s[2] = s[3] = 0;
 	do
 	{
 		i = code[p++];
+		runtime++;
+		if (runtime > 10000)
+			return res;
 		switch (i.f)
 		{
 		case lit:
@@ -68,7 +72,7 @@ string interpret(int inputValue[], int len)
 				t--;
 				s[t] = s[t] / s[t + 1];
 				break;
-			case 6:
+			case 6:										//模除2，用于odd判断
 				s[t] %= 2;
 				break;
 			case 8:
@@ -96,12 +100,10 @@ string interpret(int inputValue[], int len)
 				s[t] <= s[t + 1] ? s[t] = 1 : s[t] = 0;
 				break;
 			case 14:
-				cout << s[t];
 				res += to_string(s[t]) + " ";
 				t--;
 				break;
 			case 15:
-				cout << endl;
 				res += "\r\n";
 				break;
 			case 16:

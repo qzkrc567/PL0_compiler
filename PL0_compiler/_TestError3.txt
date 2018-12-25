@@ -1,0 +1,15 @@
+procedure test;
+
+var a;
+
+begin
+
+	a := 1;
+
+end;
+
+begin
+
+	a := 1;
+
+end.

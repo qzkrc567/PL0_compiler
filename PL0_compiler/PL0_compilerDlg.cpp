@@ -204,9 +204,9 @@ void CPL0compilerDlg::OnBnClickedOk()
 		for(int i = 0; i <= 3; i++)
 			m_listCtrl.DeleteColumn(0);
 		m_listCtrl.InsertColumn(0, _T(" "), LVCFMT_LEFT, 45);
-		m_listCtrl.InsertColumn(1, _T("PCode"), LVCFMT_LEFT, 100);
-		m_listCtrl.InsertColumn(2, _T("l"), LVCFMT_LEFT, 100);
-		m_listCtrl.InsertColumn(3, _T("a"), LVCFMT_LEFT, 100);
+		m_listCtrl.InsertColumn(1, _T("操作符"), LVCFMT_LEFT, 100);
+		m_listCtrl.InsertColumn(2, _T("层差"), LVCFMT_LEFT, 100);
+		m_listCtrl.InsertColumn(3, _T("操作数"), LVCFMT_LEFT, 100);
 	}
 	else
 	{
@@ -215,7 +215,7 @@ void CPL0compilerDlg::OnBnClickedOk()
 			m_listCtrl.DeleteColumn(0);
 		m_listCtrl.InsertColumn(0, _T(" "), LVCFMT_LEFT, 45);
 		m_listCtrl.InsertColumn(1, _T("行数"), LVCFMT_LEFT, 50);
-		m_listCtrl.InsertColumn(2, _T("列数"), LVCFMT_LEFT, 50);
+		m_listCtrl.InsertColumn(2, _T("字符数"), LVCFMT_LEFT, 50);
 		m_listCtrl.InsertColumn(3, _T("错误信息"), LVCFMT_LEFT, 200);
 	}
 	for (int i = 1; i < str.size(); i++)
